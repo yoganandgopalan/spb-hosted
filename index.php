@@ -137,9 +137,13 @@ include('create-token.php');
              }
            // redirect after successful order approval
            }).then(function (payload) {
-			   console.log('data: ', JSON.stringify(payload));
-			   if ((payload.liabilityShifted == true) && (payload.liabilityShift === 'POSSIBLE') && (payload.authenticationStatus === 'YES')&& (payload.authenticationReason === 'SUCCESSFUL')
-			       {
+		console.log('data: ', JSON.stringify(payload));
+		if ((payload.liabilityShifted == true) && (payload.liabilityShift === 'POSSIBLE') && (payload.authenticationStatus === 'YES')&& (payload.authenticationReason === 'SUCCESSFUL')) // please refer this link for more info https://developer.paypal.com/docs/business/checkout/add-capabilities/3d-secure/#response-parameters
+                /*
+				Based on the results of EnrollmentStatus and AuthenticationResult, a LiabilityShift response is returned. The LiabilityShift response determines how you might proceed with authentication.
+				Note: If you integrated 3D Secure prior to June 2020, the liabilityShifted, authenticationStatus, and AuthenticationReason parameters continue to work on the server, but are no longer supported.
+                */
+                {
                     alert('liabilityShifted = true and liabilityShift = POSSIBLE and authenticationStatus and YES and authenticationReason = SUCCESSFUL');
 					window.location.replace('review.php?order_id=<?php echo $order_id; ?>');
                 }
